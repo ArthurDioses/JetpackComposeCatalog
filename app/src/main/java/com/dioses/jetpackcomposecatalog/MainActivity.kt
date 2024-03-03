@@ -38,9 +38,12 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    Column {
-                        MyTextFieldOutlined()
+                    var myText by remember {
+                        mutableStateOf("Arthur")
                     }
+
+                    MyTextField(name = myText) { myText = it }
+
                 }
             }
         }
@@ -91,12 +94,8 @@ fun MyTextFieldAdvance() {
 
 //@Preview
 @Composable
-fun MyTextField() {
-    var myText by remember {
-        mutableStateOf("")
-    }
-
-    TextField(value = myText, onValueChange = { myText = it })
+fun MyTextField(name: String, onValueChanged: (String) -> Unit) {
+    TextField(value = name, onValueChange = onValueChanged)
 }
 
 @Composable
