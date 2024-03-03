@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    MyTextField()
+                    MyTextFieldAdvance()
                 }
             }
         }
@@ -44,11 +44,25 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     JetpackComposeCatalogTheme {
-        MyTextField()
+        MyTextFieldAdvance()
     }
 }
 
-@Preview
+@Composable
+fun MyTextFieldAdvance() {
+    var myText by remember {
+        mutableStateOf("")
+    }
+    TextField(value = myText, onValueChange = {
+        myText = if (it.contains("a")) {
+            it.replace("a", "")
+        } else {
+            it
+        }
+    }, label = { Text(text = "Introduce tu nombre") })
+}
+
+//@Preview
 @Composable
 fun MyTextField() {
     var myText by remember {
