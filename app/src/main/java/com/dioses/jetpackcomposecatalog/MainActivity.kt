@@ -6,9 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -65,8 +68,19 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     JetpackComposeCatalogTheme {
-        MyImage()
+        MyImageAdvance()
     }
+}
+
+@Composable
+fun MyImageAdvance() {
+    Image(
+        painter = painterResource(id = R.drawable.ic_launcher_background),
+        contentDescription = "Ejemplo",
+        modifier = Modifier
+            .clip(CircleShape)
+            .border(5.dp, color = Color.Red, CircleShape)
+    )
 }
 
 @Composable
