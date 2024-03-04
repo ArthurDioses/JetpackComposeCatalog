@@ -10,9 +10,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
@@ -72,7 +74,10 @@ class MainActivity : ComponentActivity() {
 
                     MyTextField(name = myText) { myText = it }
                     */
-                    MyCheckBox()
+                    Column {
+                        MyCheckBoxWithText()
+                        MyCheckBoxWithText()
+                    }
                 }
             }
         }
@@ -84,6 +89,18 @@ class MainActivity : ComponentActivity() {
 fun GreetingPreview() {
     JetpackComposeCatalogTheme {
         MyProgress()
+    }
+}
+
+@Composable
+fun MyCheckBoxWithText() {
+    var checkBoxState by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Row(Modifier.padding(8.dp)) {
+        Checkbox(checked = checkBoxState, onCheckedChange = { checkBoxState = !checkBoxState })
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text = "Ejemplo 1")
     }
 }
 
