@@ -56,6 +56,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.dioses.jetpackcomposecatalog.ui.theme.CheckInfo
 import com.dioses.jetpackcomposecatalog.ui.theme.JetpackComposeCatalogTheme
 
 class MainActivity : ComponentActivity() {
@@ -74,9 +75,11 @@ class MainActivity : ComponentActivity() {
 
                     MyTextField(name = myText) { myText = it }
                     */
+                    val myOptions = getOptions(titles = listOf("Arthur", "Ejemplo", "Pikachu"))
                     Column {
-                        MyCheckBoxWithText()
-                        MyCheckBoxWithText()
+                        myOptions.forEach {
+                            MyCheckBoxWithTextCompleted(it)
+                        }
                     }
                 }
             }
@@ -84,11 +87,34 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Composable
+fun getOptions(titles: List<String>): List<CheckInfo> {
+    return titles.map {
+        var status by rememberSaveable {
+            mutableStateOf(false)
+        }
+        CheckInfo(title = it,
+            selected = status,
+            onCheckedChange = { myNewStatus -> status = myNewStatus })
+    }
+
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     JetpackComposeCatalogTheme {
         MyProgress()
+    }
+}
+
+@Composable
+fun MyCheckBoxWithTextCompleted(checkInfo: CheckInfo) {
+    Row(Modifier.padding(8.dp)) {
+        Checkbox(checked = checkInfo.selected,
+            onCheckedChange = { checkInfo.onCheckedChange(!checkInfo.selected) })
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text = checkInfo.title)
     }
 }
 
