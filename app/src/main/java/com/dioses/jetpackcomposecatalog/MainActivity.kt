@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -66,6 +67,9 @@ fun GreetingPreview() {
 
 @Composable
 fun MyButton() {
+    var enabled by rememberSaveable {
+        mutableStateOf(true)
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,11 +77,13 @@ fun MyButton() {
     ) {
         Button(
             onClick = {
-                Log.i("Arthur", "Esto es un ejemplo")
-            }, colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Magenta,
-                contentColor = Color.Blue
-            ), border = BorderStroke(5.dp, color = Color.Green)
+                enabled = false
+            },
+            enabled = enabled,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Magenta, contentColor = Color.Blue
+            ),
+            border = BorderStroke(5.dp, color = Color.Green)
         ) {
             Text(text = "Hola")
         }
