@@ -1,6 +1,7 @@
 package com.dioses.jetpackcomposecatalog
 
 import android.os.Bundle
+import android.provider.MediaStore.Audio.Radio
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -31,6 +32,8 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -79,14 +82,34 @@ class MainActivity : ComponentActivity() {
                     */
                     val myOptions = getOptions(titles = listOf("Arthur", "Ejemplo", "Pikachu"))
                     Column {
+                        /*
                         MyTriStatusCheckBox()
                         myOptions.forEach {
                             MyCheckBoxWithTextCompleted(it)
                         }
+                        */
+                        MyRadioButton()
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+fun MyRadioButton() {
+    Row(Modifier.fillMaxWidth()) {
+        RadioButton(
+            selected = false,
+            onClick = { },
+            enabled = false,
+            colors = RadioButtonDefaults.colors(
+                selectedColor = Color.Red,
+                unselectedColor = Color.Yellow,
+                disabledSelectedColor = Color.Blue
+            )
+        )
+        Text(text = "Ejemplo 1")
     }
 }
 
@@ -110,7 +133,8 @@ fun getOptions(titles: List<String>): List<CheckInfo> {
         var status by rememberSaveable {
             mutableStateOf(false)
         }
-        CheckInfo(title = it,
+        CheckInfo(
+            title = it,
             selected = status,
             onCheckedChange = { myNewStatus -> status = myNewStatus })
     }
@@ -155,12 +179,8 @@ fun MyCheckBox() {
     Checkbox(
         checked = checkBoxState, onCheckedChange = {
             checkBoxState = !checkBoxState
-        },
-        enabled = true,
-        colors = CheckboxDefaults.colors(
-            checkedColor = Color.Red,
-            uncheckedColor = Color.Yellow,
-            checkmarkColor = Color.Blue
+        }, enabled = true, colors = CheckboxDefaults.colors(
+            checkedColor = Color.Red, uncheckedColor = Color.Yellow, checkmarkColor = Color.Blue
         )
     )
 }
@@ -237,9 +257,7 @@ fun MyProgress() {
 @Composable
 fun MyIcon() {
     Icon(
-        imageVector = Icons.Rounded.StarHalf,
-        contentDescription = "Icono",
-        tint = Color.Red
+        imageVector = Icons.Rounded.StarHalf, contentDescription = "Icono", tint = Color.Red
     )
 }
 
@@ -276,12 +294,9 @@ fun MyButton() {
         Button(
             onClick = {
                 enabled = false
-            },
-            enabled = enabled,
-            colors = ButtonDefaults.buttonColors(
+            }, enabled = enabled, colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Magenta, contentColor = Color.Blue
-            ),
-            border = BorderStroke(5.dp, color = Color.Green)
+            ), border = BorderStroke(5.dp, color = Color.Green)
         ) {
             Text(text = "Hola")
         }
