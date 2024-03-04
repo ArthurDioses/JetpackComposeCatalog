@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,8 +17,10 @@ import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarHalf
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -32,6 +35,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -61,7 +65,7 @@ class MainActivity : ComponentActivity() {
 
                     MyTextField(name = myText) { myText = it }
                     */
-                    MyImage()
+                    MyProgress()
                 }
             }
         }
@@ -72,7 +76,25 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     JetpackComposeCatalogTheme {
-        MyIcon()
+        MyProgress()
+    }
+}
+
+@Composable
+fun MyProgress() {
+    Column(
+        Modifier
+            .padding(24.dp)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator(color = Color.Green, strokeWidth = 10.dp)
+        LinearProgressIndicator(
+            modifier = Modifier.padding(top = 32.dp),
+            color = Color.Red,
+            trackColor = Color.Yellow
+        )
     }
 }
 
