@@ -9,7 +9,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -65,7 +67,7 @@ class MainActivity : ComponentActivity() {
 
                     MyTextField(name = myText) { myText = it }
                     */
-                    MyProgress()
+                    MyProgressAdvance()
                 }
             }
         }
@@ -81,7 +83,33 @@ fun GreetingPreview() {
 }
 
 @Composable
+fun MyProgressAdvance() {
+    var progressStatus by rememberSaveable {
+        mutableStateOf(0f)
+    }
+    Column(
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        LinearProgressIndicator(progress = progressStatus)
+        Row(Modifier.fillMaxWidth()) {
+            Button(onClick = { progressStatus += 0.1f }) {
+                Text(text = "Incrementar")
+            }
+            Button(onClick = { progressStatus -= 0.1f }) {
+                Text(text = "Reducir")
+            }
+        }
+    }
+}
+
+@Composable
 fun MyProgress() {
+    var showLoading by rememberSaveable {
+        mutableStateOf(false)
+    }
+
     Column(
         Modifier
             .padding(24.dp)
@@ -89,12 +117,19 @@ fun MyProgress() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CircularProgressIndicator(color = Color.Green, strokeWidth = 10.dp)
-        LinearProgressIndicator(
-            modifier = Modifier.padding(top = 32.dp),
-            color = Color.Red,
-            trackColor = Color.Yellow
-        )
+        if (showLoading) {
+            CircularProgressIndicator(color = Color.Green, strokeWidth = 10.dp)
+            LinearProgressIndicator(
+                modifier = Modifier.padding(top = 32.dp),
+                color = Color.Red,
+                trackColor = Color.Yellow
+            )
+        }
+        Button(onClick = {
+            showLoading = !showLoading
+        }) {
+            Text(text = "Cargar Perfil")
+        }
     }
 }
 
