@@ -27,6 +27,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -67,7 +69,7 @@ class MainActivity : ComponentActivity() {
 
                     MyTextField(name = myText) { myText = it }
                     */
-                    MyProgressAdvance()
+                    MySwitch()
                 }
             }
         }
@@ -80,6 +82,24 @@ fun GreetingPreview() {
     JetpackComposeCatalogTheme {
         MyProgress()
     }
+}
+
+@Composable
+fun MySwitch() {
+    var switchState by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Switch(
+        checked = switchState,
+        onCheckedChange = { switchState = !switchState },
+        enabled = true,
+        colors = SwitchDefaults.colors(
+            uncheckedThumbColor = Color.Red,
+            uncheckedTrackColor = Color.Magenta,
+            checkedThumbColor = Color.Green,
+            checkedTrackColor = Color.Cyan,
+        )
+    )
 }
 
 @Composable
