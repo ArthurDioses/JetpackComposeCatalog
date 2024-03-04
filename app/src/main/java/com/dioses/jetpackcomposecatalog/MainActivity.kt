@@ -19,6 +19,9 @@ import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarHalf
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -69,7 +72,7 @@ class MainActivity : ComponentActivity() {
 
                     MyTextField(name = myText) { myText = it }
                     */
-                    MySwitch()
+                    MyCheckBox()
                 }
             }
         }
@@ -82,6 +85,24 @@ fun GreetingPreview() {
     JetpackComposeCatalogTheme {
         MyProgress()
     }
+}
+
+@Composable
+fun MyCheckBox() {
+    var checkBoxState by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Checkbox(
+        checked = checkBoxState, onCheckedChange = {
+            checkBoxState = !checkBoxState
+        },
+        enabled = true,
+        colors = CheckboxDefaults.colors(
+            checkedColor = Color.Red,
+            uncheckedColor = Color.Yellow,
+            checkmarkColor = Color.Blue
+        )
+    )
 }
 
 @Composable
