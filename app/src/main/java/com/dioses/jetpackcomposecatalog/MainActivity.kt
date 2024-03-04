@@ -1,11 +1,15 @@
 package com.dioses.jetpackcomposecatalog
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -38,12 +42,14 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
+                    /*
                     var myText by remember {
                         mutableStateOf("Arthur")
                     }
 
                     MyTextField(name = myText) { myText = it }
-
+                    */
+                    MyButton()
                 }
             }
         }
@@ -54,7 +60,27 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     JetpackComposeCatalogTheme {
-        MyTextFieldOutlined()
+        MyButton()
+    }
+}
+
+@Composable
+fun MyButton() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+    ) {
+        Button(
+            onClick = {
+                Log.i("Arthur", "Esto es un ejemplo")
+            }, colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Magenta,
+                contentColor = Color.Blue
+            ), border = BorderStroke(5.dp, color = Color.Green)
+        ) {
+            Text(text = "Hola")
+        }
     }
 }
 
