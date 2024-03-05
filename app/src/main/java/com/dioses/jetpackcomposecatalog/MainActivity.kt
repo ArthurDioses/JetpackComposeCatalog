@@ -117,7 +117,7 @@ class MainActivity : ComponentActivity() {
                         Button(onClick = { show = true }) {
                             Text(text = "Mostrar dialogo")
                         }
-                        MyCustomDialog(
+                        MyConfirmationDialog(
                             show = show,
                             onDismiss = { show = false }
                         )
