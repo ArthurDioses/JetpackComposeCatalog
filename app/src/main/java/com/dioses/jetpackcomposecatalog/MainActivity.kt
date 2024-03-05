@@ -117,10 +117,9 @@ class MainActivity : ComponentActivity() {
                         Button(onClick = { show = true }) {
                             Text(text = "Mostrar dialogo")
                         }
-                        MyAlertDialog(
+                        MySimpleCustomDialog(
                             show = show,
-                            onDismiss = { show = false },
-                            onConfirm = { Log.i("Arthur", "click") }
+                            onDismiss = { show = false }
                         )
                     }
                 }
