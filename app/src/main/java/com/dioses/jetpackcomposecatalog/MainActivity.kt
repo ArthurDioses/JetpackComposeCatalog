@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,10 +33,13 @@ import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -80,7 +84,7 @@ class MainActivity : ComponentActivity() {
                 }
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     /*
                     var myText by remember {
@@ -89,6 +93,7 @@ class MainActivity : ComponentActivity() {
 
                     MyTextField(name = myText) { myText = it }
                     */
+                    /*
                     val myOptions = getOptions(titles = listOf("Arthur", "Ejemplo", "Pikachu"))
                     Column {
                         /*
@@ -100,7 +105,46 @@ class MainActivity : ComponentActivity() {
                         //MyRadioButtonList(selected, { selected = it })
                         MyDivider()
                     }
+                    */
+                    MyDropDownMenu()
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun MyDropDownMenu() {
+    var selectedText by remember {
+        mutableStateOf("")
+    }
+    var expanded by remember {
+        mutableStateOf(false)
+    }
+    var desserts = listOf("Helado", "Chocolate", "Café", "Frutas")
+    Column(Modifier.padding(20.dp)) {
+        OutlinedTextField(
+            value = selectedText,
+            onValueChange = { selectedText = it },
+            enabled = false,
+            readOnly = true,
+            modifier = Modifier
+                .clickable { expanded = true }
+                .fillMaxWidth()
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            Modifier.fillMaxWidth()
+        ) {
+            desserts.forEach { dessert ->
+                DropdownMenuItem(
+                    text = { Text(text = dessert) },
+                    onClick = {
+                        expanded = false
+                        selectedText = dessert
+                    }
+                )
             }
         }
     }
