@@ -10,6 +10,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -106,7 +107,22 @@ class MainActivity : ComponentActivity() {
                         MyDivider()
                     }
                     */
-                    MyRangeSlider()
+                    var show by remember {
+                        mutableStateOf(false)
+                    }
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Button(onClick = { show = true }) {
+                            Text(text = "Mostrar dialogo")
+                        }
+                        MyAlertDialog(
+                            show = show,
+                            onDismiss = { show = false },
+                            onConfirm = { Log.i("Arthur", "click") }
+                        )
+                    }
                 }
             }
         }
