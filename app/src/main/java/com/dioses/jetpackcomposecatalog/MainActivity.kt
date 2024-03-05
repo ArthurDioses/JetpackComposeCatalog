@@ -69,6 +69,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             JetpackComposeCatalogTheme {
+                var selected by remember {
+                    mutableStateOf("Arthur")
+                }
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
@@ -88,10 +91,44 @@ class MainActivity : ComponentActivity() {
                             MyCheckBoxWithTextCompleted(it)
                         }
                         */
-                        MyRadioButton()
+                        MyRadioButtonList(selected, { selected = it })
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun MyRadioButtonList(name: String, onItemSelected: (String) -> Unit) {
+    Column(Modifier.fillMaxWidth()) {
+        Row(Modifier.fillMaxWidth()) {
+            RadioButton(
+                selected = name == "Arthur",
+                onClick = { onItemSelected("Arthur") }
+            )
+            Text(text = "Arthur")
+        }
+        Row(Modifier.fillMaxWidth()) {
+            RadioButton(
+                selected = name == "Felipe",
+                onClick = { onItemSelected("Felipe") }
+            )
+            Text(text = "Felipe")
+        }
+        Row(Modifier.fillMaxWidth()) {
+            RadioButton(
+                selected = name == "Dioses",
+                onClick = { onItemSelected("Dioses") }
+            )
+            Text(text = "Dioses")
+        }
+        Row(Modifier.fillMaxWidth()) {
+            RadioButton(
+                selected = name == "Reto",
+                onClick = { onItemSelected("Reto") }
+            )
+            Text(text = "Reto")
         }
     }
 }
