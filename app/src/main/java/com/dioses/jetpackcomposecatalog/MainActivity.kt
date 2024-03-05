@@ -15,11 +15,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarHalf
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -94,11 +97,31 @@ class MainActivity : ComponentActivity() {
                         }
                         */
                         //MyRadioButtonList(selected, { selected = it })
-                        MyCard()
+                        MyBadgeBox()
                     }
                 }
             }
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyBadgeBox() {
+    BadgedBox(modifier = Modifier.padding(16.dp), badge = {
+        Badge(
+            content = { Text(text = "10", modifier = Modifier.padding(2.dp)) },
+            containerColor = Color.Blue,
+            contentColor = Color.White,
+            modifier = Modifier.padding(2.dp)
+        )
+    }) {
+        Icon(
+            modifier = Modifier.size(50.dp),
+            imageVector = Icons.Rounded.Star,
+            contentDescription = "l",
+            tint = Color.Green
+        )
     }
 }
 
