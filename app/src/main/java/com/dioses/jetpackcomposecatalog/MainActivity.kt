@@ -22,6 +22,8 @@ import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarHalf
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
@@ -91,10 +93,31 @@ class MainActivity : ComponentActivity() {
                             MyCheckBoxWithTextCompleted(it)
                         }
                         */
-                        MyRadioButtonList(selected, { selected = it })
+                        //MyRadioButtonList(selected, { selected = it })
+                        MyCard()
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun MyCard() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        elevation = CardDefaults.cardElevation(16.dp),
+        shape = MaterialTheme.shapes.extraSmall,
+        colors = CardDefaults.cardColors(containerColor = Color.Blue, contentColor = Color.Green),
+        border = BorderStroke(5.dp, Color.Green)
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            Text(text = "Ejemplo 1")
+            Text(text = "Ejemplo 1")
+            Text(text = "Ejemplo 1")
+            Text(text = "Ejemplo 1")
         }
     }
 }
