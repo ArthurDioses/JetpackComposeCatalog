@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
                         MyDivider()
                     }
                     */
-                    MyDropDownMenu()
+                    BasicSlider()
                 }
             }
         }
