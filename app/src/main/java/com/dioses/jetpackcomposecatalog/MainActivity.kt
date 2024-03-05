@@ -31,6 +31,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -97,12 +98,21 @@ class MainActivity : ComponentActivity() {
                         }
                         */
                         //MyRadioButtonList(selected, { selected = it })
-                        MyBadgeBox()
+                        MyDivider()
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+fun MyDivider() {
+    Divider(
+        Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp), color = Color.Red
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
