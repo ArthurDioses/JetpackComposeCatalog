@@ -16,9 +16,16 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dioses.jetpackcomposecatalog.model.Superhero
+import kotlinx.coroutines.launch
 
 /****
  * Project: JetpackComposeCatalog
@@ -36,24 +44,66 @@ import com.dioses.jetpackcomposecatalog.model.Superhero
  * Created by Arthur Dioses Reto on 6/03/24 at 12:28
  * All rights reserved 2024.
  ****/
+
 @Preview
+@Composable
+fun SuperHeroWithSpecialControlsView() {
+    val context = LocalContext.current
+    val rvState = rememberLazyListState()
+    val coroutinesScope = rememberCoroutineScope()
+
+    Column {
+        LazyColumn(
+            state = rvState,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.weight(1f)
+        ) {
+            items(getSuperHero()) { superhero ->
+                ItemHero(superhero = superhero) {
+                    Toast.makeText(context, it.superheroName, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        val showButton by remember {
+            derivedStateOf {
+                rvState.firstVisibleItemIndex > 0
+            }
+        }
+
+
+        rvState.firstVisibleItemScrollOffset
+
+        if (showButton) {
+            Button(
+                onClick = {
+                    coroutinesScope.launch {
+                        rvState.animateScrollToItem(0)
+                    }
+                }, modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(16.dp)
+            ) {
+                Text(text = "Soy un botón Cool")
+            }
+        }
+    }
+
+}
+
 @Composable
 fun SuperHeroGridView() {
     val context = LocalContext.current
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        content = {
+        columns = GridCells.Fixed(2), content = {
             items(getSuperHero()) { superhero ->
                 ItemHero(superhero = superhero) {
                     Toast.makeText(
-                        context,
-                        it.superheroName,
-                        Toast.LENGTH_SHORT
+                        context, it.superheroName, Toast.LENGTH_SHORT
                     ).show()
                 }
             }
-        },
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+        }, contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     )
 }
 
@@ -89,9 +139,7 @@ fun SuperHeroView() {
 @Composable
 fun ItemHero(superhero: Superhero, onItemSelected: (Superhero) -> Unit) {
     Card(border = BorderStroke(2.dp, Color.Red),
-        modifier = Modifier
-            .width(200.dp)
-            .clickable { onItemSelected(superhero) }
+        modifier = Modifier.clickable { onItemSelected(superhero) }
         //.padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = .16.dp)
     ) {
         Column {
