@@ -107,6 +107,7 @@ class MainActivity : ComponentActivity() {
                         MyDivider()
                     }
                     */
+                    /*
                     var show by remember {
                         mutableStateOf(false)
                     }
@@ -122,6 +123,8 @@ class MainActivity : ComponentActivity() {
                             onDismiss = { show = false }
                         )
                     }
+                    */
+                    SimpleRecyclerView()
                 }
             }
         }
