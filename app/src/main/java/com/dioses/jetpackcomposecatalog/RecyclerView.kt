@@ -6,11 +6,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
@@ -32,6 +36,27 @@ import com.dioses.jetpackcomposecatalog.model.Superhero
  * Created by Arthur Dioses Reto on 6/03/24 at 12:28
  * All rights reserved 2024.
  ****/
+@Preview
+@Composable
+fun SuperHeroGridView() {
+    val context = LocalContext.current
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        content = {
+            items(getSuperHero()) { superhero ->
+                ItemHero(superhero = superhero) {
+                    Toast.makeText(
+                        context,
+                        it.superheroName,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        },
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+    )
+}
+
 
 @Composable
 fun SimpleRecyclerView() {
@@ -63,11 +88,12 @@ fun SuperHeroView() {
 
 @Composable
 fun ItemHero(superhero: Superhero, onItemSelected: (Superhero) -> Unit) {
-    Card(
-        border = BorderStroke(2.dp, Color.Red),
+    Card(border = BorderStroke(2.dp, Color.Red),
         modifier = Modifier
             .width(200.dp)
-            .clickable { onItemSelected(superhero) }) {
+            .clickable { onItemSelected(superhero) }
+        //.padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = .16.dp)
+    ) {
         Column {
             Image(
                 painter = painterResource(id = superhero.photo),

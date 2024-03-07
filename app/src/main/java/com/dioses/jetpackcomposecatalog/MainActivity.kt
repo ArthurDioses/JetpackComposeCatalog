@@ -124,7 +124,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     */
-                    SuperHeroView()
+                    SuperHeroGridView()
                 }
             }
         }
