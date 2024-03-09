@@ -126,7 +126,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     */
-                    SuperHeroStickyView()
+                    ScaffoldExample()
                 }
             }
         }
