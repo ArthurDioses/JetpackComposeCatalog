@@ -2,7 +2,9 @@ package com.dioses.jetpackcomposecatalog
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -44,6 +46,35 @@ import kotlinx.coroutines.launch
  * Created by Arthur Dioses Reto on 6/03/24 at 12:28
  * All rights reserved 2024.
  ****/
+
+@ExperimentalFoundationApi
+@Preview
+@Composable
+fun SuperHeroStickyView() {
+    val context = LocalContext.current
+    val superhero = getSuperHero().groupBy { it.publisher }
+
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        superhero.forEach { (publisher, mySuperHero) ->
+            stickyHeader {
+                Text(
+                    text = publisher,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Green),
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
+            }
+            items(mySuperHero) { superhero ->
+                ItemHero(superhero = superhero) {
+                    Toast.makeText(context, it.superheroName, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+}
+
 
 @Preview
 @Composable
