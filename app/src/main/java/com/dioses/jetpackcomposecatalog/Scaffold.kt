@@ -8,13 +8,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 
 /****
  * Project: JetpackComposeCatalog
@@ -26,14 +31,25 @@ import androidx.compose.ui.unit.dp
 @ExperimentalMaterial3Api
 @Composable
 fun ScaffoldExample() {
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
+    val coroutineScope = rememberCoroutineScope()
+
     Scaffold(topBar = {
-        MyTopAppBar()
+        MyTopAppBar {
+            coroutineScope.launch {
+                snackbarHostState.showSnackbar("Has pulsado aquí $it")
+            }
+        }
+    }, snackbarHost = {
+        SnackbarHost(snackbarHostState)
     }) {}
 }
 
 @ExperimentalMaterial3Api
 @Composable
-fun MyTopAppBar() {
+fun MyTopAppBar(onClickIcon: (String) -> Unit) {
     Surface(shadowElevation = 4.dp) {
         TopAppBar(
             title = {
@@ -46,14 +62,14 @@ fun MyTopAppBar() {
                 actionIconContentColor = Color.White
             ),
             navigationIcon = {
-                IconButton(onClick = {}) {
+                IconButton(onClick = { onClickIcon("Atrás") }) {
                     Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "back")
                 }
             }, actions = {
-                IconButton(onClick = {}) {
+                IconButton(onClick = { onClickIcon("Buscar") }) {
                     Icon(imageVector = Icons.Filled.Search, contentDescription = "search")
                 }
-                IconButton(onClick = {}) {
+                IconButton(onClick = { onClickIcon("Peligro") }) {
                     Icon(imageVector = Icons.Filled.Dangerous, contentDescription = "dangerous")
                 }
             }
