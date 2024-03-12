@@ -1,6 +1,7 @@
 package com.dioses.jetpackcomposecatalog
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Dangerous
 import androidx.compose.material.icons.filled.Favorite
@@ -8,6 +9,8 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
@@ -37,11 +40,18 @@ import kotlinx.coroutines.launch
  ****/
 
 @Composable
+fun MyFAB() {
+    FloatingActionButton(onClick = {}, containerColor = Color.Yellow, contentColor = Color.White) {
+        Icon(imageVector = Icons.Filled.Add, contentDescription = "add")
+    }
+}
+
+@Composable
 fun MyBottomNavigation() {
     var index by remember {
         mutableStateOf(0)
     }
-    NavigationBar(containerColor = Color.Red, contentColor = Color.White) {
+    NavigationBar(containerColor = Color.Red, contentColor = Color.Black) {
         NavigationBarItem(selected = index == 0, onClick = { index = 0 }, icon = {
             Icon(
                 imageVector = Icons.Default.Home, contentDescription = "home"
@@ -74,17 +84,24 @@ fun ScaffoldExample() {
     }
     val coroutineScope = rememberCoroutineScope()
 
-    Scaffold(topBar = {
-        MyTopAppBar {
-            coroutineScope.launch {
-                snackbarHostState.showSnackbar("Has pulsado aquí $it")
+    Scaffold(
+        topBar = {
+            MyTopAppBar {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar("Has pulsado aquí $it")
+                }
             }
-        }
-    }, snackbarHost = {
-        SnackbarHost(snackbarHostState)
-    }, bottomBar = {
-        MyBottomNavigation()
-    }) {}
+        },
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
+        },
+        bottomBar = {
+            MyBottomNavigation()
+        },
+        floatingActionButton = { MyFAB() },
+        floatingActionButtonPosition = FabPosition.Center,
+        //isFloatingActionButtonDocked = true //not fount in Material 33
+    ) {}
 }
 
 @ExperimentalMaterial3Api
