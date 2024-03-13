@@ -1,8 +1,6 @@
 package com.dioses.jetpackcomposecatalog
 
 import android.os.Bundle
-import android.provider.MediaStore.Audio.Radio
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -11,7 +9,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +28,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
@@ -41,7 +37,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -73,6 +68,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.dioses.jetpackcomposecatalog.ui.theme.CheckInfo
 import com.dioses.jetpackcomposecatalog.ui.theme.JetpackComposeCatalogTheme
 
@@ -89,44 +87,12 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    /*
-                    var myText by remember {
-                        mutableStateOf("Arthur")
+                    val navigationController = rememberNavController()
+                    NavHost(navController = navigationController, startDestination = "pantalla1") {
+                        composable("pantalla1") { Screen1(navigationController) }
+                        composable("pantalla2") { Screen2(navigationController) }
+                        composable("pantalla3") { Screen3(navigationController) }
                     }
-
-                    MyTextField(name = myText) { myText = it }
-                    */
-                    /*
-                    val myOptions = getOptions(titles = listOf("Arthur", "Ejemplo", "Pikachu"))
-                    Column {
-                        /*
-                        MyTriStatusCheckBox()
-                        myOptions.forEach {
-                            MyCheckBoxWithTextCompleted(it)
-                        }
-                        */
-                        //MyRadioButtonList(selected, { selected = it })
-                        MyDivider()
-                    }
-                    */
-                    /*
-                    var show by remember {
-                        mutableStateOf(false)
-                    }
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Button(onClick = { show = true }) {
-                            Text(text = "Mostrar dialogo")
-                        }
-                        MyConfirmationDialog(
-                            show = show,
-                            onDismiss = { show = false }
-                        )
-                    }
-                    */
-                    ScaffoldExample()
                 }
             }
         }
