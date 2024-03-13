@@ -107,6 +107,15 @@ class MainActivity : ComponentActivity() {
                                 navigationController, backStackEntry.arguments?.getInt("age") ?: 0
                             )
                         }
+                        composable(
+                            Routes.Pantalla5.route, arguments = listOf(navArgument("name") {
+                                defaultValue = "Pepe"
+                            })
+                        ) { backStackEntry ->
+                            Screen5(
+                                navigationController, backStackEntry.arguments?.getString("name")
+                            )
+                        }
                     }
                 }
             }
