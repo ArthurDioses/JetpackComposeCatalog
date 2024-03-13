@@ -48,6 +48,7 @@ android {
         }
     }
 }
+val nav_version = "2.7.7"
 
 dependencies {
 
@@ -61,6 +62,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     //Material Icon
     implementation("androidx.compose.material:material-icons-extended")
+    //Navigation compose
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
